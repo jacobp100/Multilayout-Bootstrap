@@ -10,9 +10,9 @@ $.changeFragment = function(index, view, element) {
 		var params = $.unparam();
 		params.fragment = index;
 		if (view) {
-			params.view = view;
-		} else if (params.view) {
-			delete params.view;
+			params['fragment-view'] = view;
+		} else if (params['fragment-view']) {
+			delete params['fragment-view'];
 		}
 
 		var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?' + $.param(params);
@@ -34,7 +34,7 @@ $.unparam = function() {
 
 $.fn.extend({
 	'changeFragment': function(index) {
-		$.changeFragment(index, this.data('view'), this);
+		$.changeFragment(index, this.data('fragment-view'), this);
 	},
 	'fragmentLink': function() {
 		this.on('click', function() {
@@ -60,7 +60,6 @@ $(function() {
 	});
 
 	var params = $.unparam();
-	console.log(params);
 	if (params.fragment) {
 		$.changeFragment(Number(params.fragment), params.view);
 	} else {
