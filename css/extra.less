@@ -1,0 +1,82 @@
+@import "../bower_components/bootstrap/less/variables.less";
+@import "../bower_components/bootstrap/less/mixins/grid.less";
+
+.content {
+	position: absolute;
+	top: 50px;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
+	.container-fixed();
+	
+	> .row {
+		height: 100%;
+		
+		.view {
+			display: inline;
+			height: 100%;
+		}
+	}
+}
+
+.fragment {
+	padding: (@grid-gutter-width) (@grid-gutter-width / 2);
+	height: 100%;
+	overflow-y: scroll;
+
+	@media (max-width: @grid-float-breakpoint) {
+		display: none;
+
+		&.visible {
+			display: block;
+		}
+	}
+}
+
+@media (max-width: @grid-float-breakpoint) {
+	.navbar-brand {
+		float: none;
+		display: block;
+		text-align: center;
+	}
+}
+
+.navbar-back {
+	display: none;
+	position: relative;
+	float: left;
+	margin: (@navbar-padding-vertical / 2) 0 (@navbar-padding-vertical / 2) @navbar-padding-horizontal;
+	padding: @padding-base-vertical @padding-large-vertical;
+	background-color: transparent;
+	background-image: none; // Reset unusual Firefox-on-Android default style; see https://github.com/necolas/normalize.css/issues/214
+	border: 1px solid @navbar-default-toggle-border-color;
+	border-radius: @border-radius-base;
+	color: @navbar-default-toggle-hover-bg;
+
+    &:hover,
+    &:focus {
+      background-color: @navbar-default-toggle-hover-bg;
+    }
+    .icon-bar {
+      background-color: @navbar-default-toggle-icon-bar-bg;
+    }
+
+	@media (max-width: @grid-float-breakpoint) {
+		&.visible {
+			display: block;
+		}
+	}
+}
+
+.navbar-inverse .navbar-back {
+	border-color: @navbar-inverse-toggle-border-color;
+	color: @navbar-inverse-toggle-icon-bar-bg;
+
+	&:hover,
+	&:focus {
+		background-color: @navbar-inverse-toggle-hover-bg;
+	}
+	.icon-bar {
+		background-color: @navbar-inverse-toggle-icon-bar-bg;
+	}
+}
