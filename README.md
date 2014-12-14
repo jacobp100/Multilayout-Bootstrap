@@ -1,5 +1,5 @@
 # Multilayout Bootstrap
-Designed to get complicated layouts, like those seen on email, to work in Bootstrap on the web and mobile. Requires jQuery, can be used either with static pages, AngularJS, or both. It can be used with any amount of columns: from just a side-bar to complicated drill-down layouts, such as Miller columns.
+Designed to get complicated layouts, like those seen on email, to work in Bootstrap on the web and mobile. Requires jQuery, can be used either with static pages, AngularJS, or both. It can be used with any amount of columns: from just a simple side-bar to complicated drill-down layouts, such as Miller columns.
 
 ![Image of desktop](https://raw.githubusercontent.com/jacobp100/Multilayout-Bootstrap/master/example-images/desktop.png)
 ![Image of mobile](https://raw.githubusercontent.com/jacobp100/Multilayout-Bootstrap/master/example-images/mobile.png)
@@ -20,7 +20,7 @@ By default, navigating to a different fragment will change the url parameters (v
 You must add a back button to your navbar to be able to navigate on a mobile (See `index.html`).
 ```html
 <button type="button" class="navbar-back">
-	<span class="sr-only">Toggle navigation</span>
+	<span class="sr-only">Back</span>
 	<span class="back glyphicon glyphicon-arrow-left"></span>
 </button>
 ```
