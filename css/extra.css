@@ -52,8 +52,8 @@
 .navbar-back:focus {
   background-color: #dddddd;
 }
-.navbar-back .icon-bar {
-  background-color: #888888;
+.navbar-back .back {
+  width: 22px;
 }
 @media (max-width: 768px) {
   .navbar-back.visible {
