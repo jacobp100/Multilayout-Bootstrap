@@ -17,6 +17,29 @@ To manually change a view, call into `$.changeFragment(index, [view], [element])
 
 By default, navigating to a different fragment will change the url parameters (via pushState) such that a refresh will leave you will leave you where you left off. This can be disabled via `$.changeUrlWithFragment`.
 
+## Layout
+Set out the grid as you would for the desktop and tablets, leaving `col-xs` to default to `col-xs-12`. Add the class `fragment` to each column. This class will set the height to 100% and overflow-y to scroll, effecting independent scrolling on each fragment.
+
+It can be useful to group fragments for AngularJS to make advantage of controllers affecting multiple, but not all, fragments. Wrap the appropriate columns in a `div` with the class `view` for this.
+```html
+<div class="row">
+    <div class="view">
+        <div class="col-sm-3 col-md-2 fragment visible">
+            Content
+        </div>
+        <div class="col-sm-3 fragment">
+            Content
+        </div>
+    </div>
+    <div class="view">
+        <div class="col-sm-6 col-md-7 fragment">
+            Content
+        </div>
+    </div>
+</div>
+```
+**This step is optional.** Columns will work directly in rows if not needed.
+
 ## AngularJS Route
 Create a controller for each fragment that will update. In the email example, a controller would be made for the inbox, and clicking inbox, sent, or drafts would send events to this controller to update the content. To respond to these events, listen to `viewChanged`, and filter out only the fragment index you are interested in.
 
