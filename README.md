@@ -17,6 +17,14 @@ To manually change a view, call into `$.changeFragment(index, [view], [element])
 
 By default, navigating to a different fragment will change the url parameters (via pushState) such that a refresh will leave you will leave you where you left off. This can be disabled via `$.changeUrlWithFragment`.
 
+You must add a back button to your navbar to be able to navigate on a mobile (See `index.html`).
+```html
+<button type="button" class="navbar-back">
+	<span class="glyphicon glyphicon-arrow-left"></span>
+	<span class="sr-only">Toggle navigation</span>
+</button>
+```
+
 ## Layout
 Set out the grid as you would for the desktop and tablets, leaving `col-xs` to default to `col-xs-12`. Add the class `fragment` to each column. This class will set the height to 100% and overflow-y to scroll, effecting independent scrolling on each fragment.
 
