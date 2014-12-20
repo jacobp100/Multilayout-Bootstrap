@@ -41,7 +41,16 @@ $.changeUrlWithFragment = true;
 $.changeFragment = function(index, view, element) {
 	$.currentFragment = index;
 	$('.fragment').removeClass('visible');
-	$('[data-fragment-order='+$.currentFragment+']').addClass('visible').scrollTop(0).find(':focusable').first().focus();
+	var $fragment = $('[data-fragment-order='+$.currentFragment+']')
+	$fragment.addClass('visible').scrollTop(0);
+
+	var $focusable = $fragment.find('.active:focusable, .active :focusable');
+	if ($focusable.length > 0) {
+		$focusable.first().focus();
+	} else {
+		$fragment.find(':focusable').first().focus();
+	}
+
 	$('.navbar-back').toggleClass('visible', $.currentFragment !== 0);
 
 	if ($.changeUrlWithFragment && window.history.pushState) {
