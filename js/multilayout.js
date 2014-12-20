@@ -1,9 +1,47 @@
+/* jQuery UI */
+if (!$.ui) {
+	function focusable(element, isTabIndexNotNaN) {
+		var map, mapName, img,
+			nodeName = element.nodeName.toLowerCase();
+		if (nodeName === 'area') {
+			map = element.parentNode;
+			mapName = map.name;
+			if (!element.href || !mapName || map.nodeName.toLowerCase() !== 'map') {
+				return false;
+			}
+			img = $("img[usemap='#" + mapName + "']")[ 0 ];
+			return !!img && visible(img);
+		}
+		return (/input|select|textarea|button|object/.test(nodeName) ?
+			!element.disabled :
+			'a' === nodeName ?
+				element.href || isTabIndexNotNaN :
+				isTabIndexNotNaN) &&
+			// the element and all of its ancestors must be visible
+			visible(element);
+	}
+
+
+	function visible(element) {
+		return $.expr.filters.visible(element) &&
+			!$(element).parents().addBack().filter(function() {
+				return $.css(this, "visibility") === "hidden";
+			}).length;
+	}
+
+	$.extend($.expr[ ":" ], {
+		focusable: function(element) {
+			return focusable(element, !isNaN($.attr(element, 'tabindex')));
+		}
+	});
+}
+
 $.currentFragment = 0;
 $.changeUrlWithFragment = true;
 $.changeFragment = function(index, view, element) {
 	$.currentFragment = index;
 	$('.fragment').removeClass('visible');
-	$('[data-fragment-order='+$.currentFragment+']').addClass('visible').scrollTop(0);
+	$('[data-fragment-order='+$.currentFragment+']').addClass('visible').scrollTop(0).find(':focusable').first().focus();
 	$('.navbar-back').toggleClass('visible', $.currentFragment !== 0);
 
 	if ($.changeUrlWithFragment && window.history.pushState) {
