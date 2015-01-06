@@ -1,6 +1,8 @@
 /* jQuery UI */
+var multilayout = {};
+
 if (!$.ui) {
-	function focusable(element, isTabIndexNotNaN) {
+	multilayout.focusable = function focusable(element, isTabIndexNotNaN) {
 		var map, mapName, img,
 			nodeName = element.nodeName.toLowerCase();
 		if (nodeName === 'area') {
@@ -10,7 +12,7 @@ if (!$.ui) {
 				return false;
 			}
 			img = $("img[usemap='#" + mapName + "']")[ 0 ];
-			return !!img && visible(img);
+			return !!img && multilayout.visible(img);
 		}
 		return (/input|select|textarea|button|object/.test(nodeName) ?
 			!element.disabled :
@@ -18,20 +20,20 @@ if (!$.ui) {
 				element.href || isTabIndexNotNaN :
 				isTabIndexNotNaN) &&
 			// the element and all of its ancestors must be visible
-			visible(element);
-	}
+			multilayout.visible(element);
+	};
 
 
-	function visible(element) {
+	multilayout.visible = function visible(element) {
 		return $.expr.filters.visible(element) &&
 			!$(element).parents().addBack().filter(function() {
 				return $.css(this, "visibility") === "hidden";
 			}).length;
-	}
+	};
 
 	$.extend($.expr[ ":" ], {
 		focusable: function(element) {
-			return focusable(element, !isNaN($.attr(element, 'tabindex')));
+			return multilayout.focusable(element, !isNaN($.attr(element, 'tabindex')));
 		}
 	});
 }
@@ -41,10 +43,10 @@ $.changeUrlWithFragment = true;
 $.changeFragment = function(index, view, element) {
 	$.currentFragment = index;
 	$('.fragment').removeClass('visible');
-	var $fragment = $('[data-fragment-order='+$.currentFragment+']')
+	var $fragment = $('[data-fragment-order='+$.currentFragment+']');
 	$fragment.addClass('visible').scrollTop(0);
 
-	var $focusable = $fragment.find('.active:focusable, .active :focusable');
+	var $focusable = $fragment.find('.active:not(tr):focusable, .active:not(tr) :focusable');
 	if ($focusable.length > 0) {
 		$focusable.first().focus();
 	} else {
